@@ -87,3 +87,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+.idea/
+tests/__pycache__/
+core/__pycache__/
