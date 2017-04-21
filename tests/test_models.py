@@ -7,4 +7,4 @@ __author__ = 'Tommy'
 class TestRemindr(TestCase):
     def test_remindr_properties(self):
         remindr = Remindr(1234)
-        self.assertEqual(remindr.phone)
+        self.assertEqual(1234, remindr.phone)
