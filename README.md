@@ -1,1 +1,1 @@
-# remindr
+# remindr [![Build Status](https://travis-ci.org/yohanmishkin/remindr.svg?branch=master)](https://travis-ci.org/yohanmishkin/remindr)
