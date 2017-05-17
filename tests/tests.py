@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from doubles import allow
 
-from core.models import Remindr, S3, Schedule, Audio
+from core.models import Remindr, Storage, Schedule, Audio
 from core.handler import RemindrFunction
 
 
@@ -19,7 +19,7 @@ class TestHandler(TestCase):
         fake_audio = Audio('text.mp3')
         allow(fake_audio).recording.and_return('text.mp3')
 
-        fake_storage = S3()
+        fake_storage = Storage()
         # allow(fake_storage).savedObject
 
         fake_schedule = Schedule()
