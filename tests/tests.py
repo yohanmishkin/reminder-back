@@ -1,6 +1,8 @@
-from mock import mock
 from unittest import TestCase
-from core.models import Remindr
+
+from doubles import allow
+
+from core.models import Remindr, S3, Schedule, Audio
 from core.handler import RemindrFunction
 
 
@@ -11,18 +13,19 @@ class TestRemindr(TestCase):
         self.assertEqual('message', remindr.message)
         self.assertEqual('cron', remindr.cron)
 
+
 class TestHandler(TestCase):
     def test_handler_run(self):
-        fake_audio = mock.Mock()
-        fake_audio.recording.returns = 'text.mp3'
+        fake_audio = Audio('text.mp3')
+        allow(fake_audio).recording.and_return('text.mp3')
 
-        fake_storage = mock.Mock()
-        fake_storage.save.returns = None
+        fake_storage = S3()
+        # allow(fake_storage).savedObject
 
-        fake_scheduler = mock.Mock()
-        fake_scheduler.schedule.returns = None
+        fake_schedule = Schedule()
+        # allow(fake_schedule).add_item
 
-        handler = RemindrFunction(fake_audio, fake_storage, fake_scheduler)
+        handler = RemindrFunction(fake_audio, fake_storage, fake_schedule)
 
         event = {
             'message': 'Hello',
@@ -31,7 +34,3 @@ class TestHandler(TestCase):
         }
 
         handler.run(event)
-
-        self.assertTrue(fake_audio.recording.called)
-        self.assertTrue(fake_storage.savedObject.called)
-        self.assertTrue(fake_scheduler.schedule.called)
