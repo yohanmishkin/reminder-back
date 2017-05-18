@@ -1,3 +1,4 @@
+
 class Remindr(object):
     def __init__(self, phone, message, cron):
         self.phone = phone
@@ -5,11 +6,11 @@ class Remindr(object):
         self.cron = cron
 
 
-class Storage(object):
+class S3(object):
     def __init__(self):
         pass
 
-    def ocket(self, ocket):
+    def savedObject(self, ocket):
         pass
 
 
