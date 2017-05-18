@@ -5,12 +5,15 @@ class FakeRemindr(object):
         self.cron = cron
 
 
-class FakeS3(object):
+class FakeStorage(object):
     def __init__(self):
-        pass
+        self.ockets = []
 
-    def savedObject(self, ocket):
-        pass
+    def save(self, ocket):
+        self.ockets.append(ocket)
+
+    def ockets(self):
+        return self.ockets
 
 
 class FakeSchedule(object):
@@ -30,4 +33,4 @@ class FakeAudio(object):
         pass
 
     def recording(self, location):
-        pass
+        self.synthesize_speech_was_called = True

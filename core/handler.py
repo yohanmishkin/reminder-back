@@ -3,7 +3,7 @@ AUDIO_GENERATOR = 'polly'
 PHONE_OPERATOR = 'twilio'
 
 
-class RemindrFunction:
+class Handler(object):
     def __init__(self, audio, storage, scheduler):
         self.audio = audio
         self.storage = storage
@@ -11,5 +11,5 @@ class RemindrFunction:
 
     def run(self, event):
         audio = self.audio.recording(event["message"])
-        saved_audio = self.storage.ocket(audio)
+        saved_audio = self.storage.save(audio)
         self.schedule.add_item(saved_audio, event['phone'], event['cron'])

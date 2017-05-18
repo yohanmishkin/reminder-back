@@ -6,7 +6,7 @@ class Remindr(object):
         self.cron = cron
 
 
-class S3(object):
+class AzureStorage(object):
     def __init__(self):
         pass
 
@@ -14,7 +14,7 @@ class S3(object):
         pass
 
 
-class Schedule(object):
+class AzureFunctions(object):
     def __init__(self):
         pass
 
@@ -25,7 +25,7 @@ class Schedule(object):
         pass
 
 
-class Audio(object):
+class Polly(object):
     def __init__(self, location):
         pass
 
