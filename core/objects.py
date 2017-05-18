@@ -1,12 +1,26 @@
 
 class Remindr(object):
-    def __init__(self, phone, message, cron):
+    def __init__(self, phone, recording, calendar, cron):
         self.phone = phone
-        self.message = message
+        self.recording = recording
+        self.calendar = calendar
         self.cron = cron
 
+    def save(self):
+        assert False
 
-class AzureStorage(object):
+
+class PhoneNumber(object):
+    def __init__(self, number):
+        self.number = number
+
+
+class Cron(object):
+    def __init__(self, schedule_string):
+        self.schedule_string = schedule_string
+
+
+class AzureStorageObject(object):
     def __init__(self):
         pass
 
@@ -19,9 +33,6 @@ class AzureFunctions(object):
         pass
 
     def add_item(self, audio, phone_number, cron):
-        pass
-
-    def items(self):
         pass
 
 

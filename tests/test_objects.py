@@ -3,7 +3,15 @@ from core.objects import Remindr
 
 class TestRemindr(TestCase):
     def test_attributes(self):
-        remindr = Remindr(1234, 'message', 'cron')
-        assert 1234 == remindr.phone
-        assert 'message' == remindr.message
-        assert 'cron' == remindr.cron
+        remindr = Remindr('123-123-1234', 'location', CALENDAR, 'everyday')
+        
+        assert '123-123-1234' == remindr.phone
+        assert 'location' == remindr.recording
+        assert remindr.calendar
+        assert 'everyday' == remindr.cron
+
+    def test_save(self):
+        remindr = Remindr()
+        remindr.save()
+        
+        assert len(remindr.calendar.items) > 0

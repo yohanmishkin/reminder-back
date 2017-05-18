@@ -1,11 +1,5 @@
-class FakeRemindr(object):
-    def __init__(self, phone, message, cron):
-        self.phone = phone
-        self.message = message
-        self.cron = cron
 
-
-class FakeStorage(object):
+class FakeStorageObject(object):
     def __init__(self):
         self.ockets = []
 

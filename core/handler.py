@@ -1,15 +1,23 @@
-STORAGE = 's3'
-AUDIO_GENERATOR = 'polly'
-PHONE_OPERATOR = 'twilio'
-
+from core.objects import (Remindr, PhoneNumber, Cron, 
+                            AzureStorageObject, AzureFunctions, Polly)
 
 class Handler(object):
-    def __init__(self, audio, storage, scheduler):
-        self.audio = audio
-        self.storage = storage
-        self.schedule = scheduler
-
+    
     def run(self, event):
-        audio = self.audio.recording(event["message"])
-        saved_audio = self.storage.save(audio)
-        self.schedule.add_item(saved_audio, event['phone'], event['cron'])
+        
+        remindr = Remindr(
+                    PhoneNumber(
+                        event['phone']
+                    ),
+                    AzureStorageObject(
+                        Polly(
+                            event['message']
+                        )
+                    ),
+                    AzureFunctions(),
+                    Cron(
+                        event['cron']
+                    )
+                )
+
+        remindr.save()
