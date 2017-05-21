@@ -1,6 +1,6 @@
 
 class FakeStorageObject(object):
-    def __init__(self):
+    def __init__(self, file):
         self.ockets = []
 
     def save(self, ocket):
@@ -10,7 +10,7 @@ class FakeStorageObject(object):
         return self.ockets
 
 
-class FakeSchedule(object):
+class FakeProcessor(object):
     def __init__(self):
         self.items = []
 
@@ -23,8 +23,8 @@ class FakeSchedule(object):
 
 
 class FakeAudio(object):
-    def __init__(self, location):
-        pass
+    def __init__(self, message):
+        self.message = message
 
-    def recording(self, location):
+    def recording(self):
         self.synthesize_speech_was_called = True

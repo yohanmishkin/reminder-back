@@ -1,13 +1,14 @@
 
 class Remindr(object):
-    def __init__(self, phone, recording, calendar, cron):
+
+    def __init__(self, phone, recording, processor, cron):
         self.phone = phone
         self.recording = recording
-        self.calendar = calendar
+        self.processor = processor
         self.cron = cron
 
     def save(self):
-        assert False
+        self.processor.add_item(self.recording, self.phone, self.cron)
 
 
 class PhoneNumber(object):
