@@ -1,14 +1,10 @@
 
 class FakeStorageObject(object):
     def __init__(self, file):
-        self.ockets = []
+        pass
 
     def save(self, ocket):
         self.ockets.append(ocket)
-
-    def ockets(self):
-        return self.ockets
-
 
 class FakeProcessor(object):
     def __init__(self):
