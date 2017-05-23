@@ -2,4 +2,4 @@ language: python
 python:
   - "3.5"
 
-script: nosetests tests
+script: python -m unittest discover tests
