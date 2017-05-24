@@ -30,5 +30,12 @@
     <Folder Include="core" />
     <Folder Include="tests" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include=".travis.yml" />
+    <Content Include="core\serverless.yml" />
+    <Content Include="LICENSE" />
+    <Content Include="README.md" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>
