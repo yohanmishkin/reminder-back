@@ -14,10 +14,10 @@ class Handler(object):
                             event['message']
                         )
                     ),
-                    AWSLambda(),
                     Cron(
                         event['cron']
                     )
                 )
 
-        remindr.save()
+        aws_lambda = AWSLambda()
+        aws_lambda.add_item(remindr)
