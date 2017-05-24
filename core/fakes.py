@@ -10,8 +10,8 @@ class FakeProcessor(object):
     def __init__(self):
         self.items = []
 
-    def add_item(self, audio, phone_number, cron):
-        self.items.append(cron)
+    def add_item(self, remindr):
+        self.items.append(remindr)
         pass
 
     def items(self):

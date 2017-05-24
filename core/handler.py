@@ -1,5 +1,5 @@
 from core.objects import (Remindr, PhoneNumber, Cron, 
-                            AzureStorageObject, AzureFunctions, Polly)
+                            S3Object, AWSLambda, Polly)
 
 class Handler(object):
     
@@ -9,12 +9,12 @@ class Handler(object):
                     PhoneNumber(
                         event['phone']
                     ),
-                    AzureStorageObject(
+                    S3Object(
                         Polly(
                             event['message']
                         )
                     ),
-                    AzureFunctions(),
+                    AWSLambda(),
                     Cron(
                         event['cron']
                     )
