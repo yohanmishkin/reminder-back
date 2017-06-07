@@ -22,3 +22,9 @@ class TestRemindr(TestCase):
         function_processor.add_item(remindr)
 
         assert len(function_processor.items) > 0
+
+class TestPolly(TestCase):
+    def test_recording(self):
+        polly = Polly('this is a message')
+        mp3 = polly.recording()
+        assert mp3
