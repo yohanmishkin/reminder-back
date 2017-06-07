@@ -1,4 +1,5 @@
 from core.polly import Polly
+from core.s3 import S3Object
 
 class Remindr(object):
     def __init__(self, phone, recording, cron):
@@ -14,14 +15,6 @@ class PhoneNumber(object):
 class Cron(object):
     def __init__(self, schedule_string):
         self.schedule_string = schedule_string
-
-
-class S3Object(object):
-    def __init__(self):
-        pass
-
-    def savedObject(self, ocket):
-        pass
 
 
 class AWSLambda(object):

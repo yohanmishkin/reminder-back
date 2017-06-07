@@ -1,3 +1,4 @@
+from tempfile import TemporaryFile
 from unittest import TestCase
 from core.objects import *
 from core.fakes import *
@@ -28,3 +29,10 @@ class TestPolly(TestCase):
         polly = Polly('this is a message')
         mp3 = polly.recording()
         assert mp3
+
+class TestS3Object(TestCase):
+    def test_location(self):
+        temp_file = TemporaryFile()
+        s3 = S3Object('test-remindrs', temp_file)
+        location = s3.location()
+        assert location
