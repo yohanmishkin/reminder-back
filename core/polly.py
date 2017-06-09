@@ -13,24 +13,20 @@ class Polly(object):
         session = Session()
         polly = session.client("polly")
         
-        try: 
-            response = polly.synthesize_speech(Text=self.message,
-                                                   VoiceId="Salli",
-                                                   OutputFormat="mp3")
+        response = polly.synthesize_speech(Text=self.message,
+                                                VoiceId="Salli",
+                                                OutputFormat="mp3")
 
-            if "AudioStream" in response:
-                with closing(response["AudioStream"]) as stream:
-                    output = os.path.join(gettempdir(), "remindr.mp3")
-                    try:
-                        # Open a file for writing the output as a binary stream
-                        with open(output, "wb") as file:
-                            file.write(stream.read())
-                            return output
+        if "AudioStream" in response:
+            with closing(response["AudioStream"]) as stream:
+                output = os.path.join(gettempdir(), "remindr.mp3")
+                try:
+                    # Open a file for writing the output as a binary stream
+                    with open(output, "wb") as file:
+                        file.write(stream.read())
+                        return output
 
-                    except IOError as error:
-                        # Could not write to file, exit gracefully
-                        print(error)
-                        sys.exit(-1)
-        except:
-            # The service returned an error, exit gracefully
-            raise
+                except IOError as error:
+                    # Could not write to file, exit gracefully
+                    print(error)
+                    sys.exit(-1)

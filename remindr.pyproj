@@ -25,6 +25,9 @@
     <Compile Include="core\polly.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="core\s3.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="core\__init__.py" />
     <Compile Include="tests\test_objects.py" />
     <Compile Include="tests\__init__.py" />

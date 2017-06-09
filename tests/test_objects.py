@@ -1,4 +1,3 @@
-from tempfile import TemporaryFile
 from unittest import TestCase
 from core.objects import *
 from core.fakes import *
@@ -32,7 +31,16 @@ class TestPolly(TestCase):
 
 class TestS3Object(TestCase):
     def test_location(self):
-        temp_file = TemporaryFile()
-        s3 = S3Object('test-remindrs', temp_file)
-        location = s3.location()
-        assert location
+        
+        test_bucket_name = 'test-remindrs'
+        test_file_name = 'test-remindr.mp3'
+
+        with open(test_file_name, 'w') as temp_file:
+            temp_file.truncate(1024)
+            s3 = S3Object(test_bucket_name, temp_file)
+            location = s3.location()
+            
+            assert location
+
+            test_url = 'https://s3.us-east-2.amazonaws.com/{0}/{1}'.format(test_bucket_name, test_file_name)
+            assert location == test_url
