@@ -1,27 +1,35 @@
+import json 
 from core.objects import (Remindr, PhoneNumber, Cron, 
                             S3Object, AWSLambda, Polly)
 
-class Handler(object):
-    
-    def run(self, event):
-        
-        remindr = Remindr(
-                    PhoneNumber(
-                        event['phone']
-                    ),
-                    S3Object(
-                        Polly(
-                            event['message']
-                        )
-                    ),
-                    Cron(
-                        event['cron']
-                    )
-                )
+def schedule_remindr(self, event):
+    print(event)
+    response = {
+        "statusCode": 200,
+        "body": json.dumps(event)
+    }
 
-        aws_lambda = AWSLambda()
-        aws_lambda.add_item(remindr)
+    return response
 
+#    remindr = Remindr(
+#                PhoneNumber(
+#                    event['phone']
+#                ),
+#                S3Object(
+#                    Polly(
+#                        event['message']
+#                    )
+#                ),
+#                Cron(
+#                    event['cron']
+#                )
+#            )
+
+#    aws_lambda = AWSLambda()
+#    aws_lambda.add_item(remindr)
+
+#def process_remindr():
+#    pass
 
 #def hello(event, context):
 #    body = {

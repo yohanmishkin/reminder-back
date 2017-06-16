@@ -3,9 +3,11 @@
 
 Ember app 
 	> phone #, cron, message
-	> Lamba
+	> Stripe checkout 
+		> returns Stripe token
+	> Lambda (handler.schedule_remindr())
 		> creates mp3 (put number in filename?)
 		> uploads to S3
-		> schedules remindr
-			> Lambda
+		> schedules remindr (with parameters?)
+			> Lambda (handler.process_remindr())
 				> uses Twilio to call number with mp3
