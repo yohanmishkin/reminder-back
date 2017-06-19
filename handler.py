@@ -6,8 +6,8 @@ from core.objects import (Remindr, PhoneNumber, Cron,
 def schedule_remindr(event, context):
     print(event)
     stripe.api_key = "sk_test_k7hRhJ2DKta6DGw5ytbpIo7V"
-    #token = request.POST['stripeToken']
-    token = event['stripeToken']
+    token = event['body']
+    print(token)
     charge = stripe.Charge.create(
       amount=1000,
       currency="usd",

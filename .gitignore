@@ -91,3 +91,5 @@ ENV/
 .idea/
 tests/__pycache__/
 core/__pycache__/
+.serverless/
+stripe/
