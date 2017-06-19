@@ -1,9 +1,20 @@
 import json 
+import stripe
 from core.objects import (Remindr, PhoneNumber, Cron, 
                             S3Object, AWSLambda, Polly)
 
-def schedule_remindr(self, event):
+def schedule_remindr(event, context):
     print(event)
+    stripe.api_key = "sk_test_k7hRhJ2DKta6DGw5ytbpIo7V"
+    #token = request.POST['stripeToken']
+    token = event['stripeToken']
+    charge = stripe.Charge.create(
+      amount=1000,
+      currency="usd",
+      description="Example charge",
+      source=token,
+    )
+
     response = {
         "statusCode": 200,
         "body": json.dumps(event)

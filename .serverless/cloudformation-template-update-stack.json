@@ -92,10 +92,10 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/remindr/dev/1497061005575-2017-06-10T02:16:45.575Z/remindr.zip"
+          "S3Key": "serverless/remindr/dev/1497848013113-2017-06-19T04:53:33.113Z/remindr.zip"
         },
         "FunctionName": "remindr-dev-schedule_remindr",
-        "Handler": "core.handler.schedule_remindr",
+        "Handler": "handler.schedule_remindr",
         "MemorySize": 1024,
         "Role": {
           "Fn::GetAtt": [
@@ -111,14 +111,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "ScheduleUnderscoreremindrLambdaVersionL8rMbgKUGXzIVFibrg1MNU5nUAhQFVADlXSnwTlecIM": {
+    "ScheduleUnderscoreremindrLambdaVersionNnWtmKiqi7MkANp73Lsz6AJlChSXE9TkC21qXRRHE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ScheduleUnderscoreremindrLambdaFunction"
         },
-        "CodeSha256": "L8rMbgKUGXzIVFibrg1MNU5nUAhQFVADlXSnwTlecIM="
+        "CodeSha256": "NnWtmKiqi7MkANp73Lsz6AJlChSXE/9TkC21qXRR+HE="
       }
     }
   },
@@ -131,7 +131,7 @@
     "ScheduleUnderscoreremindrLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ScheduleUnderscoreremindrLambdaVersionL8rMbgKUGXzIVFibrg1MNU5nUAhQFVADlXSnwTlecIM"
+        "Ref": "ScheduleUnderscoreremindrLambdaVersionNnWtmKiqi7MkANp73Lsz6AJlChSXE9TkC21qXRRHE"
       }
     }
   }
