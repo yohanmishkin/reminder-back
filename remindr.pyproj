@@ -20,7 +20,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="core\fakes.py" />
-    <Compile Include="core\handler.py" />
+    <Compile Include="handler.py" />
     <Compile Include="core\objects.py" />
     <Compile Include="core\polly.py">
       <SubType>Code</SubType>
@@ -42,6 +42,7 @@
     <Content Include="core\serverless.yml" />
     <Content Include="LICENSE" />
     <Content Include="README.md" />
+    <Content Include="requirements.txt" />
     <Content Include="serverless.yml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

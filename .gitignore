@@ -93,3 +93,6 @@ tests/__pycache__/
 core/__pycache__/
 .serverless/
 stripe/
+node_modules/
+vendored/
+remindr_env/
