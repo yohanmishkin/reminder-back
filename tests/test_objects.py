@@ -1,3 +1,4 @@
+import os
 from unittest import TestCase
 from core.objects import *
 from core.fakes import *
@@ -44,3 +45,8 @@ class TestS3Object(TestCase):
 
             test_url = 'https://s3.us-east-2.amazonaws.com/{0}/{1}'.format(test_bucket_name, test_file_name)
             assert location == test_url
+
+            temp_file.close()
+            os.remove(test_file_name)
+
+        assert not os.path.exists(test_file_name)

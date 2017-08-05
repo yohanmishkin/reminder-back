@@ -11,7 +11,7 @@ class Polly(object):
     def recording(self):
         
         session = Session()
-        polly = session.client("polly")
+        polly = session.client("polly", region_name='us-east-1')
         
         response = polly.synthesize_speech(Text=self.message,
                                                 VoiceId="Salli",
