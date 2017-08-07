@@ -9,7 +9,7 @@ deploy:
   provider: lambda
   role: "arn:aws:iam::913654952177:role/remindr-dev-us-east-1-lambdaRole"
   runtime: python3.6
-  function_name: schedule_remindr
+  function_name: remindr-dev-schedule_remindr
   handler_name: handler
   access_key_id: AKIAJPTPEKY4DTUKWNRQ
   secret_access_key:
