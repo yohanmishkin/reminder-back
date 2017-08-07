@@ -8,7 +8,7 @@ script: python -m unittest discover tests
 deploy:
   provider: lambda
   role: "arn:aws:iam::913654952177:role/remindr-dev-us-east-1-lambdaRole"
-  runtime: python36
+  runtime: python3.6
   function_name: schedule_remindr
   handler_name: handler
   access_key_id: AKIAJPTPEKY4DTUKWNRQ
