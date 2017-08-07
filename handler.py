@@ -9,14 +9,16 @@ def schedule_remindr(event, context):
     print(event)
     print(token)
 
-    stripe.api_key = os.environ['STRIPE_KEY']
+    #stripe.api_key = os.environ['STRIPE_KEY']
 
-    charge = stripe.Charge.create(
-      amount=1000,
-      currency="usd",
-      description="Example charge",
-      source=token,
-    )
+    #stripe.CreateCustomer()?
+
+    #charge = stripe.Charge.create(
+    #  amount=1000,
+    #  currency="usd",
+    #  description="Example charge",
+    #  source=token,
+    #)
 
     response = {
         "statusCode": 200,

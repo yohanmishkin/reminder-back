@@ -3,3 +3,9 @@ python:
   - "3.6"
 
 script: python -m unittest discover tests
+
+deploy:
+    provider: lambda
+    role: "arn:aws:iam::913654952177:user/test-user"
+    function_name: "schedule_remindr"
+    handler_name: "handler"
