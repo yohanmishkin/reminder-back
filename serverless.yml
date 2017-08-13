@@ -7,7 +7,7 @@ provider:
 
 functions:
   schedule_remindr:
-    handler: handler.schedule_remindr
+    handler: handler.run
 
 plugins:
   - serverless-python-requirements
