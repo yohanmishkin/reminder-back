@@ -4,9 +4,9 @@ import stripe
 from core.objects import (Remindr, PhoneNumber, Cron, 
                             S3Object, AWSLambda, Polly)
 
-def schedule_remindr(event, context):
-    token = event['body']
+def schedule_remindr(event):
     print(event)
+    token = event['body']
     print(token)
 
     #stripe.api_key = os.environ['STRIPE_KEY']
