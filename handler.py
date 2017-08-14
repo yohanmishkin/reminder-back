@@ -1,7 +1,7 @@
 import os
 import json
 import stripe
-from core.objects import (Remindr, PhoneNumber, Cron, 
+from objects import (Remindr, PhoneNumber, Cron, 
                             S3Object, AWSLambda, Polly)
 
 def run(event, context):

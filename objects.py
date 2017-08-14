@@ -1,5 +1,5 @@
-from core.polly import Polly
-from core.s3 import S3Object
+from polly import Polly
+from s3 import S3Object
 
 class Remindr(object):
     def __init__(self, phone, recording, cron):

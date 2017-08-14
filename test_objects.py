@@ -1,7 +1,7 @@
 import os
 from unittest import TestCase
-from core.objects import *
-from core.fakes import *
+from objects import *
+from fakes import *
 
 class TestRemindr(TestCase):
     def test_attributes(self):
