@@ -19,27 +19,20 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="core\fakes.py" />
+    <Compile Include="fakes.py" />
     <Compile Include="handler.py" />
-    <Compile Include="core\objects.py" />
-    <Compile Include="core\polly.py">
+    <Compile Include="objects.py" />
+    <Compile Include="polly.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="core\s3.py">
+    <Compile Include="s3.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="core\__init__.py" />
-    <Compile Include="tests\test_objects.py" />
-    <Compile Include="tests\__init__.py" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="core" />
-    <Folder Include="tests" />
+    <Compile Include="test_objects.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include=".travis.yml" />
-    <Content Include="core\serverless.yml" />
     <Content Include="LICENSE" />
     <Content Include="README.md" />
     <Content Include="requirements.txt" />
