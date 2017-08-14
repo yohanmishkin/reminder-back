@@ -3,17 +3,14 @@ language: python
 python:
 - '3.6'
 
-script: 
-    - python -m unittest discover
-    - npm install -g serverless
-    - sls deploy
+script: python -m unittest discover
 
-# deploy:
-  # provider: lambda
-  # role: "arn:aws:iam::913654952177:role/remindr-dev-us-east-1-lambdaRole"
-  # runtime: python3.6
-  # function_name: remindr-dev-schedule_remindr
-  # handler_name: handler
-  # access_key_id: AKIAJPTPEKY4DTUKWNRQ
-  # secret_access_key:
-#     secure: QHI3y5CUgZGf8MqvSwDeEh+ERwG/h/miChRg+fjTncmEs1Hs8cxj8P+Pn5kO8vTb9EfkhSQqa0Ux+UDzCFGyP1fKgMTx05W/SkgPFNq5X8U3EMGvivS+6xO1lNm2ua+YvT/um8i6pXIMjG4WDS9wtMvJvlUZb89bLfuOHep1Stw65slVq7yYDlE3/KJ4D2NveJbJPIrcfWWW1JHd+SIpIpbCo2eYPLsxnBxNDBGsqdGz9ByAeqMD0PELzmQZ60+JmGeANg2rJBIRzF/I3Wydr+ORW05u+dCAJFE1hneURlZKM4FUk8P7IiASmEHQ9Y8GBF0sM3CeldhvrA3fK3GX1erb9QRMTa4sKxD5TZkeEoKd2flpTJoeLCu3733YVO+5CV00wbwS1idMSOGNOfid2Jx/ind+gXrrOKqNvzGsI9Y5K/5+YOFK6bOFITpK6dBC5+qLsw1XRWeKyeB+b5W2l79JpHa7HR3tOoT5cGfkf8J93l31klHGWSv5MJSBAuGVP5MaHla1CnLIJkrHPTJMR5cR0qcRJY2gvwMR2EnGbrGC5vhcGbOnZR2tSBRBOAAVlMFsB4l1ods5cVeMeu3kcGdweRfZi3Fbm5S27G8xK10HUZzXVzD5Mwp7S2R4qcIvJGnV8RzKMAqSVs3Km3hS7xJAUr3Z4BUV51dBye99hGA=
+#deploy:
+#  provider: lambda
+#  role: "arn:aws:iam::913654952177:role/remindr-dev-us-east-1-lambdaRole"
+#  runtime: python3.6
+#  function_name: remindr-dev-schedule_remindr
+#  handler_name: handler
+#  access_key_id: AKIAJPTPEKY4DTUKWNRQ
+#  secret_access_key:
+#    secure: QHI3y5CUgZGf8MqvSwDeEh+ERwG/h/miChRg+fjTncmEs1Hs8cxj8P+Pn5kO8vTb9EfkhSQqa0Ux+UDzCFGyP1fKgMTx05W/SkgPFNq5X8U3EMGvivS+6xO1lNm2ua+YvT/um8i6pXIMjG4WDS9wtMvJvlUZb89bLfuOHep1Stw65slVq7yYDlE3/KJ4D2NveJbJPIrcfWWW1JHd+SIpIpbCo2eYPLsxnBxNDBGsqdGz9ByAeqMD0PELzmQZ60+JmGeANg2rJBIRzF/I3Wydr+ORW05u+dCAJFE1hneURlZKM4FUk8P7IiASmEHQ9Y8GBF0sM3CeldhvrA3fK3GX1erb9QRMTa4sKxD5TZkeEoKd2flpTJoeLCu3733YVO+5CV00wbwS1idMSOGNOfid2Jx/ind+gXrrOKqNvzGsI9Y5K/5+YOFK6bOFITpK6dBC5+qLsw1XRWeKyeB+b5W2l79JpHa7HR3tOoT5cGfkf8J93l31klHGWSv5MJSBAuGVP5MaHla1CnLIJkrHPTJMR5cR0qcRJY2gvwMR2EnGbrGC5vhcGbOnZR2tSBRBOAAVlMFsB4l1ods5cVeMeu3kcGdweRfZi3Fbm5S27G8xK10HUZzXVzD5Mwp7S2R4qcIvJGnV8RzKMAqSVs3Km3hS7xJAUr3Z4BUV51dBye99hGA=
