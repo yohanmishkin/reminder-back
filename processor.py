@@ -1,70 +1,42 @@
-import os
-import json
+import boto3
+from flask import Flask, request, redirect
 import stripe
-from objects import (Remindr, PhoneNumber, Cron, 
-                            S3Object, AWSLambda, Polly)
 
-def run(event, context):
-    print(event)
-    print(context)
-    token = event['body']
-    print(token)
+# ENCRYPTED_STRIPE_KEY = os.environ['ENCRYPTED_STRIPE_KEY']
+# # Decrypt code should run once and variables stored outside of the function
+# # handler so that these are decrypted once per container
+# DECRYPTED = boto.client('kms') decrypt(CiphertextBlob=b64decode(ENCRYPTED_STRIPE_KEY))['Plaintext']
+# stripe.api_key = DECRYPTED
 
-    #stripe.api_key = os.environ['STRIPE_KEY']
+app = Flask(__name__)
 
-    #stripe.CreateCustomer()?
+@app.route("/", methods=["POST"])
+def handler(event, context):
+    try:
+        print(context)
+        print(request.form.get('event'))
 
-    #charge = stripe.Charge.create(
-    #  amount=1000,
-    #  currency="usd",
-    #  description="Example charge",
-    #  source=token,
-    #)
+        customer = stripe.Customer.create(
+            email=request.form.get('stripeEmail'),
+            source=request.form.get('stripeToken')
+        )
 
-    response = {
-        "statusCode": 200,
-        "body": json.dumps(event)
-    }
+        stripe.Subscription.create(
+            customer=customer.id,
+            plan="base-plan"
+        )
 
-    return response
+        # return redirect("https://www.your-site/success-message")
+        response = {
+            "statusCode": 200,
+            "body": json.dumps(event)
+        }
 
-#    remindr = Remindr(
-#                PhoneNumber(
-#                    event['phone']
-#                ),
-#                S3Object(
-#                    Polly(
-#                        event['message']
-#                    )
-#                ),
-#                Cron(
-#                    event['cron']
-#                )
-#            )
+        return response
 
-#    aws_lambda = AWSLambda()
-#    aws_lambda.add_item(remindr)
+    except Exception as e:
+        # Don't forget to log your errors before doing this!
+        return redirect("https://www.your-site/error-message")
 
-#def process_remindr():
-#    pass
-
-#def hello(event, context):
-#    body = {
-#        "message": "Go Serverless v1.0! Your function executed successfully!",
-#        "input": event
-#    }
-
-#    response = {
-#        "statusCode": 200,
-#        "body": json.dumps(body)
-#    }
-
-#    return response
-
-#    # Use this code if you don't use the http event with the LAMBDA-PROXY integration
-#    """
-#    return {
-#        "message": "Go Serverless v1.0! Your function executed successfully!",
-#        "event": event
-#    }
-#    """
+if __name__ == "__main__":
+    app.run()
