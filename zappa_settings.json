@@ -1,8 +1,9 @@
 {
     "dev": {
-        "app_function": "handler.run",
+        "app_function": "processor.run",
         "aws_region": "us-east-1",
         "profile_name": "default",
-        "s3_bucket": "zappa-d91rul9zw"
+        "s3_bucket": "dev-packages",
+        "memory_size": 256
     }
 }
