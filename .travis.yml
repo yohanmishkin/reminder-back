@@ -7,7 +7,9 @@ script:
   - python -m unittest discover
 
 before_deploy:
+  - pwd
   - mkdir dist
+  - ls -l
   - cp -rf src/ dist/
   - cp -rf env/Lib/site-packages/** dist/
   - cd dist
