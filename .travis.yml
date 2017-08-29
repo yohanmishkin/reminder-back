@@ -1,22 +1,25 @@
 language: python
 python:
 - '3.6'
+
 script:
 - python -m unittest discover
+
 before_deploy:
 - mkdir dist
 - cp -rf src/ dist/
 - cp -rf ~/virtualenv/python3.6.2/lib/python3.6/site-packages/** dist/
 - cd dist
 - zip -r pack.zip .
+
 deploy:
   provider: lambda
-  role: arn:aws:iam::913654952177:role/remindr-dev-us-east-1-lambdaRole
+  role: arn:aws:iam::913654952177:role/sls-dev-us-east-1-lambdaRole
   runtime: python3.6
   function_name: remindr-dev-schedule_remindr
   handler_name: handler
   zip: dist/pack.zip
-  
+
 env:
   global:
   - secure: l7TydHRwJFkYCgmgzIW1cGB4F0lHVLcQJ8vHaqc2JAaNOXbmK6TxF6/8qIRUNwW6v/79XKGBtiSnyvF+ekAZC5SOTSG4RtDUqZMhFdAmLoUNjkEx9+m7BDIHdF6a0loEB8rwc2zgyJvi8qFCH0gTzhEMJLh9MvbQiHsXBw5WsbVQBF3VkPXzhkmT69PNV5AdmsfiakFrxSK6bauL3W8goC9PsJ8FJx1BHm7oYuowZcNgKJs62BSU6Uc/l15TrzcEjntffyK2LqaPXS+qnnFTODgKzWhhTSdjwelaWFPux1wUH3kssyu0glxQukh89K6mYl15eC8b4WuheJbomFtryNOjZ8Pn/WldqKPXmVyxZynOpZFTQFO9iBHhY8/nzxzEsxvtYhmpIViZ+MBQt62wQ8Blj7sXbXgB3otrCKlCEdomoPkL6T41LSVsa59LCI7Svv9tzjQTVdVCIAiFJWrFIEr1E0iQRsbiDbIhZjZPxTb038Bv3Hzoofa4UD9BjXpe2X9MEEvcrMg58NtiFiufg2BlyH/BPbBGf0VyCJOYT2WnSsZf3twjWY1mzwZO52Bwq451aLiIyN7NgJ/KBmtG1MQYWYcKkVH8jlkh7zrsnMXU0uWDZ1VOcIlSQSqCarqR/QhJdnkUo3v0oufTVGmvzI3MnWaLpRaLbEbuG01d6No=
