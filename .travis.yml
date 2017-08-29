@@ -1,21 +1,23 @@
 language: python
-
 python:
 - '3.6'
-
 script:
-  - python -m unittest discover
-
+- python -m unittest discover
 before_deploy:
-  - mkdir dist
-  - cp -rf src/ dist/
-  - cp -rf ~/virtualenv/python3.6.2/lib/python3.6/site-packages/** dist/
-  - cd dist
-  - zip -r pack.zip .
-
+- mkdir dist
+- cp -rf src/ dist/
+- cp -rf ~/virtualenv/python3.6.2/lib/python3.6/site-packages/** dist/
+- cd dist
+- zip -r pack.zip .
 deploy:
   provider: lambda
-  role: "arn:aws:iam::913654952177:role/remindr-dev-us-east-1-lambdaRole"
+  role: arn:aws:iam::913654952177:role/remindr-dev-us-east-1-lambdaRole
   runtime: python3.6
   function_name: remindr-dev-schedule_remindr
   handler_name: handler
+  zip: dist/pack.zip
+  
+env:
+  global:
+  - secure: l7TydHRwJFkYCgmgzIW1cGB4F0lHVLcQJ8vHaqc2JAaNOXbmK6TxF6/8qIRUNwW6v/79XKGBtiSnyvF+ekAZC5SOTSG4RtDUqZMhFdAmLoUNjkEx9+m7BDIHdF6a0loEB8rwc2zgyJvi8qFCH0gTzhEMJLh9MvbQiHsXBw5WsbVQBF3VkPXzhkmT69PNV5AdmsfiakFrxSK6bauL3W8goC9PsJ8FJx1BHm7oYuowZcNgKJs62BSU6Uc/l15TrzcEjntffyK2LqaPXS+qnnFTODgKzWhhTSdjwelaWFPux1wUH3kssyu0glxQukh89K6mYl15eC8b4WuheJbomFtryNOjZ8Pn/WldqKPXmVyxZynOpZFTQFO9iBHhY8/nzxzEsxvtYhmpIViZ+MBQt62wQ8Blj7sXbXgB3otrCKlCEdomoPkL6T41LSVsa59LCI7Svv9tzjQTVdVCIAiFJWrFIEr1E0iQRsbiDbIhZjZPxTb038Bv3Hzoofa4UD9BjXpe2X9MEEvcrMg58NtiFiufg2BlyH/BPbBGf0VyCJOYT2WnSsZf3twjWY1mzwZO52Bwq451aLiIyN7NgJ/KBmtG1MQYWYcKkVH8jlkh7zrsnMXU0uWDZ1VOcIlSQSqCarqR/QhJdnkUo3v0oufTVGmvzI3MnWaLpRaLbEbuG01d6No=
+  - secure: IzvchBjBeOg9sLMLGMtdb4tpBdSbHk8LCsBnc1nzAtAzNi98nOkLLizW19GziQ8C7RMgUXhRQM3yb4gJtkhwjC0w4rM9Nwi1ABjPMrYKOcU3QjjBkosHxI+IdFO5f75g70d2v0LPwK1glhfBS8oK3pzQ4dm41/qMP1rcnn2H70DFUP54xgbh/uv/z1gOJgiyAOvhz6se8MsbwDDi/TMWJNG/pvQqLWbv9YAAAIe3T8Jl8oCyAZKR1bD72axtvCWP9qXLI1EXxBVDIhzs2A3Z16LE7lhI3kWaxSil56g8dSt05mBcRGdeFdCVG92nH0CeAVwozGAUALCgt7n+pjz8rZkJ1UqAUy6np9zZxIx0QnvVwtTGJ1wfL5iqF04jAlb1RC1pFCSlLPf9cyMAXiwLMQ7RviBHBZggqdJiqg1SbXc4jBNkZ9HLvDMfO8K5oJLY815dNzSCy/XKi7nsDSDjrH3AbosQaeR8+NIGOL2NGACykQeVk14XaDcScwwZKURmd0B89VIBIhURLt3glX4Z2ARPTUcYdOjzoTFPeaWUl8OCmnESD/x6z4KnWjF1jrw2hm/RBNykALyax4+ri414E7+KYUfP6SOWQ2esa1nkD1cJj810NoGiWya0hPx0sjFGQXHRYLOsjiasmHihBPjdGL7ePZDziCzhXhG+eTc/OVE=
