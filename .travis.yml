@@ -13,7 +13,7 @@ deploy:
   provider: lambda
   role: arn:aws:iam::913654952177:role/sls-dev-us-east-1-lambdaRole
   runtime: python3.6
-  function_name: remindr-dev-schedule_remindr
+  function_name: sls-dev-charge
   handler_name: handler
   zip: dist/pack.zip
   access_key_id: AKIAJ4QU3L4BHIGX7DYQ
