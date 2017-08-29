@@ -7,15 +7,16 @@ before_deploy:
 - mkdir dist
 - cp -rf src/ dist/
 - cp -rf ~/virtualenv/python3.6.2/lib/python3.6/site-packages/** dist/
-- cd dist
+- cd dist/
 - zip -r pack.zip .
+- ls -l
 deploy:
   provider: lambda
   role: arn:aws:iam::913654952177:role/sls-dev-us-east-1-lambdaRole
   runtime: python3.6
   function_name: sls-dev-charge
   handler_name: handler
-  zip: dist/pack.zip
+  zip: pack.zip
   access_key_id: AKIAJ4QU3L4BHIGX7DYQ
   secret_access_key:
     secure: JUdpvdRwZwzns1TBXQ2A0iwixyqPDEfaZBq4tB53vNBBIGLDOa5/LO1P/W3sk1HhoTH0qoh6GhYO3R/9KQ34oNuDkz6rGAGLvFW4+aykElDnlHwEZBHIakfKdyhiV0MZVs3LXfrkvVjcfc9aw7yB4ociCDup6fPbkGmA6Cbtp/XJ57I5wq/xzFVFrxMLf8775HN7l3CAmqDf9F5NCKjWZs+PjrO4c51sD4vWoewY0mklIp+r9W1LuR1gU9AZTmAESCkEvBxZPaZeXd3A/i4ayRayXwthP0CIeIGHV+KxCh5J1cCXEk+FeEsbD68eZXvR/6W2uXVwt2AELFkj/O7YSJ0GeOYJIi+VEN1QzxjH24ivDTBX45Uw2Ke0EwX/JnDkAozq+cviFbEfLKB8joyO4/ddP2zB+2X0vGMkd3NX86c4uKXfrPv8idwI7z5W29La9DVdGcQX033Q1dN0SoHMPc0uhqm5/iSLodEc8KWtCewkkJUAn2QAsNtWXQ8PjBumzsKvlLoiGdJ0UR5X9DzYIhqUYtsF1FU7yxztUa6wAicBNeSdpqj8p55DZzxBgnCFipr5mI8KoWts293fpsqhlNmBuBlA02od3FkB61yYdL5ET88sl3c25sRa84hbYCo4qxr+VCSfP4Q8qHvYM6cCpx5ttX0sj9YTjfJd6Nf8qwk=
