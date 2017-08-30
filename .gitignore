@@ -19,3 +19,5 @@ var/
 # Serverless directories
 .serverless
 reminder-tel.har
+
+__pycache__
