@@ -16,6 +16,7 @@ deploy:
   runtime: python3.6
   function_name: sls-dev-charge
   handler_name: handler.charge
+  module_name: src
   zip: pack.zip
   access_key_id: AKIAJ4QU3L4BHIGX7DYQ
   secret_access_key:
