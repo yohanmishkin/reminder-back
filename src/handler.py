@@ -2,6 +2,8 @@ import json
 import urllib.parse
 import stripe
 
+stripe.api_key = os.environ['STRIPE_KEY']
+
 def charge(event, context):
 
     body = event['body']
