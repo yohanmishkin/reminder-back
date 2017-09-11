@@ -1,4 +1,5 @@
 import os
+import uuid
 from unittest import TestCase
 from core.objects import *
 from core.fakes import *
@@ -35,13 +36,19 @@ class TestS3Object(TestCase):
 
         test_bucket_name = 'test-remindrs'
         test_file_name = 'test-remindr.mp3'
+        test_key = str(uuid.uuid4())
 
         with open(test_file_name, 'w') as file:
             file.truncate(1024)
 
-            location_url = S3Object(test_bucket_name, test_file_name).url()
-            assert location_url
+            s3_object = S3Object(test_bucket_name, test_file_name, test_key)
+            url = s3_object.url()
+            assert url
 
+            test_url = 'https://s3.us-east-1.amazonaws.com/{0}/{1}'.format(test_bucket_name, test_key)
+            assert url == test_url
+
+            s3_object.delete()
             file.close()
             os.remove(test_file_name)
 
