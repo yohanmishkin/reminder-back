@@ -25,8 +25,8 @@ def charge(event, context):
 
     print(url)
 
-    // schedule lambda with cron string
-    //      to call number using polly mp3
+    # schedule lambda with cron string
+    #   to call number using polly mp3
 
     charge = stripe.Charge.create(
         amount=100,
