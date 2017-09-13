@@ -18,12 +18,12 @@ def charge(event, context):
 
     bucket_name = os.environ['AUDIO_BUCKET']
 
-    s3_location = S3Object(
+    url = S3Object(
         bucket_name,
         Polly(message).recording()
-    ).location()
+    ).url()
 
-    print(s3_location)
+    print(url)
 
     // schedule lambda with cron string
     //      to call number using polly mp3
