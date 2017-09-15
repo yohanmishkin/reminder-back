@@ -6,20 +6,20 @@ import sys
 
 class Polly(object):
     def __init__(self, message):
-        self.message = message
+        self._message = message
 
-    def recording(self):
+    def recording(self, file_name):
         
         session = Session()
         polly = session.client("polly")
         
-        response = polly.synthesize_speech(Text=self.message,
+        response = polly.synthesize_speech(Text=self._message,
                                                 VoiceId="Salli",
                                                 OutputFormat="mp3")
 
         if "AudioStream" in response:
             with closing(response["AudioStream"]) as stream:
-                output = os.path.join(gettempdir(), "remindr.mp3")
+                output = os.path.join(gettempdir(), file_name)
                 try:
                     # Open a file for writing the output as a binary stream
                     with open(output, "wb") as file:

@@ -28,8 +28,9 @@ class TestRemindr(TestCase):
 class TestPolly(TestCase):
     def test_recording(self):
         polly = Polly('this is a message')
-        mp3 = polly.recording()
-        assert mp3
+        file_name = 'file_name.mp3'
+        mp3 = polly.recording(file_name)
+        assert mp3.endswith(file_name)
 
 class TestS3Object(TestCase):
     def test_url(self):

@@ -13,10 +13,12 @@ def charge(event, context):
 
     email, message, token, phone, cron = unpack_data(event)
 
+    file_name = '{0}.mp3'.format(str(uuid.uuid4()))
+
     url = S3Object(
         bucket_name,
-        Polly(message).recording(),
-        str(uuid.uuid4())
+        Polly(message).recording(file_name),
+        file_name
     ).url()
 
     print(url)
