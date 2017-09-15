@@ -1,7 +1,7 @@
 import boto3
 
 class S3Object(object):
-    def __init__(self, bucket_name='remindrs', file_name=None, key=None):
+    def __init__(self, bucket_name, file_name, key):
         self._bucket_name = bucket_name
         self._file_name = file_name
         self._key = key

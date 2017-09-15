@@ -1,5 +1,6 @@
 import json
 import urllib.parse
+import uuid
 import os
 import stripe
 from core.objects import S3Object, Polly
@@ -12,11 +13,10 @@ def charge(event, context):
 
     email, message, token, phone, cron = unpack_data(event)
 
-    print(email, message, token, phone, cron)
-
     url = S3Object(
         bucket_name,
-        Polly(message).recording()
+        Polly(message).recording(),
+        str(uuid.uuid4())
     ).url()
 
     print(url)
