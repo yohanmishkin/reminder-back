@@ -12,6 +12,8 @@ def charge(event, context):
 
     email, message, token, phone, cron = unpack_data(event)
 
+    print(email, message, token, phone, cron)
+
     url = S3Object(
         bucket_name,
         Polly(message).recording()
