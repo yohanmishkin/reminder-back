@@ -54,3 +54,14 @@ class TestS3Object(TestCase):
             os.remove(test_file_name)
 
         assert not os.path.exists(test_file_name)
+
+class TestTwilioLookup(TestCase):
+    def test_is_valid(self):
+        phone_number = '15108675309'
+        phone = TwilioPhone(phone_number)
+        assert phone.is_valid() == True
+
+    def test_is_invalid(self):
+        phone_number = '19999999999'
+        phone = TwilioPhone(phone_number)
+        assert phone.is_valid() == False

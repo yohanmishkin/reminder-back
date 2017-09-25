@@ -1,6 +1,7 @@
 import json
 import urllib.parse
 import uuid
+import sys
 import os
 import stripe
 from core.objects import S3Object, Polly
@@ -8,46 +9,51 @@ from core.objects import S3Object, Polly
 stripe.api_key = os.environ['STRIPE_KEY']
 bucket_name = os.environ['AUDIO_BUCKET']
 
-
 def charge(event, context):
 
-    email, message, token, phone, cron = unpack_data(event)
+    try:
+        email, message, token, phone, cron = unpack_data(event)
 
-    file_name = '{0}.mp3'.format(str(uuid.uuid4()))
+        verify_phone(phone)
 
-    url = S3Object(
-        bucket_name,
-        Polly(message).recording(file_name),
-        file_name
-    ).url()
+        url = create_recording(message)
 
-    print(url)
+        place_call(url, phone)  # schedule lambda with cron string
 
-    # schedule lambda with cron string
-    #   to call number using polly mp3
+        stripe.Charge.create(
+            amount=100,
+            currency="usd",
+            description="One reminder",
+            source=token,
+        )
 
-    charge = stripe.Charge.create(
-        amount=100,
-        currency="usd",
-        description="One reminder",
-        source=token,
-    )
+        body = {
+            "message": "Charging credit card",
+            "token": token,
+            "email": email,
+            "phone": phone,
+            "cron": cron,
+            "recording_url": url
+        }
 
-    body = {
-        "message": "Charging credit card",
-        "token": token,
-        "email": email,
-        "phone": phone,
-        "cron": cron,
-        "recording_url": url
-    }
+        response = {
+            "statusCode": 200,
+            "body": json.dumps(body)
+        }
 
-    response = {
-        "statusCode": 200,
-        "body": json.dumps(body)
-    }
+        return response
 
-    return response
+    except:
+        exception = sys.exc_info()[0]
+        return {
+            "statusCode": 500,
+            "body": exception
+        }
+
+def call(event, context):
+    pass
+
+
 
 def unpack_data(event):
     encoded_form = urllib.parse.unquote(event['body'])
@@ -57,4 +63,18 @@ def unpack_data(event):
     message = decoded_form["message"][0]
     phone = decoded_form["phone"][0]
     cron = decoded_form["cron"][0]
+
     return email, message, token, phone, cron
+
+
+def create_recording(message):
+    file_name = '{0}.mp3'.format(str(uuid.uuid4()))
+    url = S3Object(
+        bucket_name,
+        Polly(message).recording(file_name),
+        file_name
+    ).url()
+
+    print(url)
+
+    return url
