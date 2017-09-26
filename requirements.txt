@@ -5,6 +5,7 @@ chardet==3.0.4
 docutils==0.14
 idna==2.6
 jmespath==0.9.3
+pathlib==1.0.1
 PyJWT==1.5.3
 PySocks==1.6.7
 python-dateutil==2.6.1

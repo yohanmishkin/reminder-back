@@ -1,24 +1,27 @@
-import json
 import urllib.parse
 import uuid
 import sys
 import os
 import stripe
 from core.objects import S3Object, Polly
+from core.twilio import TwilioPhone
 
 stripe.api_key = os.environ['STRIPE_KEY']
-bucket_name = os.environ['AUDIO_BUCKET']
+RECORDINGS_BUCKET = os.environ['AUDIO_BUCKET']
+
 
 def charge(event, context):
-
     try:
-        email, message, token, phone, cron = unpack_data(event)
+        email, message, token, phone_number, cron = unpack_data(event)
 
-        verify_phone(phone)
-
-        url = create_recording(message)
-
-        place_call(url, phone)  # schedule lambda with cron string
+        TwilioPhone(phone_number).call(
+            S3Object(
+                RECORDINGS_BUCKET,
+                Polly(message).recording(
+                    '{0}.mp3'.format(str(uuid.uuid4()))
+                )
+            ).url()
+        )
 
         stripe.Charge.create(
             amount=100,
@@ -27,18 +30,9 @@ def charge(event, context):
             source=token,
         )
 
-        body = {
-            "message": "Charging credit card",
-            "token": token,
-            "email": email,
-            "phone": phone,
-            "cron": cron,
-            "recording_url": url
-        }
-
         response = {
             "statusCode": 200,
-            "body": json.dumps(body)
+            "body": "Scheduled call and charged card"
         }
 
         return response
@@ -49,10 +43,6 @@ def charge(event, context):
             "statusCode": 500,
             "body": exception
         }
-
-def call(event, context):
-    pass
-
 
 
 def unpack_data(event):
@@ -65,16 +55,3 @@ def unpack_data(event):
     cron = decoded_form["cron"][0]
 
     return email, message, token, phone, cron
-
-
-def create_recording(message):
-    file_name = '{0}.mp3'.format(str(uuid.uuid4()))
-    url = S3Object(
-        bucket_name,
-        Polly(message).recording(file_name),
-        file_name
-    ).url()
-
-    print(url)
-
-    return url
