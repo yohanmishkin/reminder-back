@@ -1,6 +1,5 @@
 import urllib.parse
 import uuid
-import sys
 import os
 import stripe
 from core.objects import S3Object, Polly
@@ -37,8 +36,7 @@ def charge(event, context):
 
         return response
 
-    except:
-        exception = sys.exc_info()[0]
+    except Exception as exception:
         return {
             "statusCode": 500,
             "body": exception
