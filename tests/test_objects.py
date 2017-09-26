@@ -56,3 +56,12 @@ class TestS3Object(TestCase):
             os.remove(test_file_name)
 
         assert not os.path.exists(test_file_name)
+
+
+class TestTwilioPhone(TestCase):
+    def test_makes_call(self):
+        url = 'http://demo.twilio.com/docs/classic.mp3'
+        phone_number = "+15005550006"
+
+        sid = TwilioPhone(phone_number).call(url)
+        assert sid
