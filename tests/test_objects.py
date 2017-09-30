@@ -1,6 +1,8 @@
 import os
 import uuid
 from unittest import TestCase
+
+from core import Usecase, TwilioPhone, S3Object, Polly
 from core.objects import *
 from core.fakes import *
 
@@ -65,3 +67,9 @@ class TestTwilioPhone(TestCase):
 
         sid = TwilioPhone(phone_number).call(url)
         assert sid
+
+
+class TestUsecase(TestCase):
+    def test_runs(self):
+        usecase = Usecase('Just saying hello', '', 'tok_1B2qSBEUR7TDQMyvCsSBYc0e')
+        usecase.run()

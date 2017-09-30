@@ -1,4 +1,4 @@
-service: sls
+service: reminder-tel
 
 provider:
   name: aws

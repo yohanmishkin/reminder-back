@@ -1,33 +1,14 @@
 import urllib.parse
-import uuid
-import os
-import stripe
-from core.objects import S3Object, Polly
-from core.twilio import TwilioPhone
 
-stripe.api_key = os.environ['STRIPE_KEY']
-RECORDINGS_BUCKET = os.environ['AUDIO_BUCKET']
+from core.usecase import Usecase
 
 
 def charge(event, context):
     try:
         email, message, token, phone_number, cron = unpack_data(event)
 
-        TwilioPhone(phone_number).call(
-            S3Object(
-                RECORDINGS_BUCKET,
-                Polly(message).recording(
-                    '{0}.mp3'.format(str(uuid.uuid4()))
-                )
-            ).url()
-        )
-
-        stripe.Charge.create(
-            amount=100,
-            currency="usd",
-            description="One reminder",
-            source=token,
-        )
+        use_case = Usecase(message, phone_number, token)
+        use_case.run()
 
         response = {
             "statusCode": 200,
@@ -41,6 +22,7 @@ def charge(event, context):
             "statusCode": 500,
             "body": exception
         }
+
 
 
 def unpack_data(event):
