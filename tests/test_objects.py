@@ -5,6 +5,7 @@ from unittest import TestCase
 from core import Usecase, TwilioPhone, S3Object, Polly
 from core.objects import *
 from core.fakes import *
+from core.twilio import TwimlFile
 
 
 class TestRemindr(TestCase):
@@ -35,6 +36,21 @@ class TestPolly(TestCase):
         file_name = 'file_name.mp3'
         mp3 = polly.recording(file_name)
         assert mp3.endswith(file_name)
+
+
+class TestTwimlFile(TestCase):
+    def test_write(self):
+        test_key = str(uuid.uuid4())
+        test_file_name = '{0}.mp3'.format(test_key)
+
+        with open(test_file_name, 'w') as file:
+            file.truncate(1024)
+            twiml_location = TwimlFile(test_file_name).write()
+
+            assert os.path.exists(twiml_location)
+            os.remove(twiml_location)
+
+        os.remove(test_file_name)
 
 
 class TestS3Object(TestCase):
@@ -68,8 +84,3 @@ class TestTwilioPhone(TestCase):
         sid = TwilioPhone(phone_number).call(url)
         assert sid
 
-
-class TestUsecase(TestCase):
-    def test_runs(self):
-        usecase = Usecase('Just saying hello', '', 'tok_1B2qSBEUR7TDQMyvCsSBYc0e')
-        usecase.run()

@@ -1,6 +1,8 @@
 import os
-from twilio.rest import Client
+from xml.etree.ElementTree import Element, SubElement, ElementTree
+
 from twilio.base.exceptions import TwilioRestException
+from twilio.rest import Client
 
 
 class TwilioPhone(object):
@@ -8,19 +10,23 @@ class TwilioPhone(object):
         self._phone_number = phone_number
         self._account_sid = os.environ['TWILIO_ACCOUNT_SID']
         self._auth_token = os.environ['TWILIO_AUTH_TOKEN']
+        self._from = os.environ['TWILIO_FROM']
 
     def call(self, url):
         client = Client(self._account_sid, self._auth_token)
-        number = client.api.account.incoming_phone_numbers.create(
-            voice_url=url,
-            phone_number=self._phone_number
+
+        call = client.api.account.calls.create(
+            to=self._phone_number,
+            from_=self._from,
+            url=url
         )
-        return number.sid
+
+        return call.sid
 
     def is_valid(self):
         try:
             client = Client(self._account_sid, self._auth_token)
-            response = client.lookups.phone_numbers(self._phone_number).fetch(type="carrier")
+            client.lookups.phone_numbers(self._phone_number).fetch(type="carrier")
             return True
 
         except TwilioRestException as e:
@@ -28,3 +34,17 @@ class TwilioPhone(object):
                 return False
             else:
                 raise e
+
+
+class TwimlFile(object):
+    def __init__(self, file_url):
+        self._file_url = file_url
+
+    def write(self):
+        top = Element('Response')
+        child = SubElement(top, 'Play')
+        child.text = self._file_url
+
+        file_name = 'voice.xml'
+        ElementTree(top).write(file_name)
+        return file_name
