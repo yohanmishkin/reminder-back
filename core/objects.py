@@ -1,9 +1,9 @@
-
 class Remindr(object):
     def __init__(self, phone, recording, cron):
         self._phone = phone
         self._recording = recording
         self._cron = cron
+
 
 class PhoneNumber(object):
     def __init__(self, number):

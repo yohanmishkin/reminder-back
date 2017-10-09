@@ -2,10 +2,8 @@ import os
 import uuid
 from unittest import TestCase
 
-from core import Usecase, TwilioPhone, S3Object, Polly
-from core.objects import *
+from core import TwilioPhone, S3Object, Polly, TwimlFile, Remindr, PhoneNumber, Cron
 from core.fakes import *
-from core.twilio import TwimlFile
 
 
 class TestRemindr(TestCase):
@@ -19,6 +17,7 @@ class TestRemindr(TestCase):
         remindr = Remindr(
             PhoneNumber('123-132-1234'),
             FakeStorageObject(
+                'bucket-name',
                 FakeAudio('message')
             ),
             Cron('* * * *')
@@ -80,7 +79,7 @@ class TestTwilioPhone(TestCase):
     def test_makes_call(self):
         url = 'http://demo.twilio.com/docs/classic.mp3'
         phone_number = "+15005550006"
+        _from = phone_number
 
-        sid = TwilioPhone(phone_number).call(url)
+        sid = TwilioPhone(phone_number, _from).call(url)
         assert sid
-
