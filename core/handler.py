@@ -2,8 +2,7 @@ import os
 import urllib.parse
 import uuid
 
-from core import S3Object, Polly, TwilioPhone, TwimlFile
-from core.usecase import Usecase
+from core import S3Object, Polly, TwilioPhone, TwimlFile, StripePayment, Usecase
 
 
 def charge(event, context):
@@ -27,7 +26,10 @@ def charge(event, context):
                 phone_number,
                 os.environ['TWILIO_FROM']
             ),
-            token
+            StripePayment(
+                os.environ['STRIPE_KEY'],
+                token
+            )
         ).run()
 
         response = {
