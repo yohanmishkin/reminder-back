@@ -1,6 +1,5 @@
 class FakeStorageObject(object):
-    def __init__(self, bucket_name, file_name):
-        self._bucket_name = bucket_name
+    def __init__(self, file_name):
         self._file_name = file_name
 
     def url(self):
@@ -20,8 +19,8 @@ class FakeProcessor(object):
 
 
 class FakeAudio(object):
-    def __init__(self, message):
-        self.message = message
+    def __init__(self):
+        pass
 
     def recording(self, file_name):
         return file_name
@@ -30,3 +29,23 @@ class FakeAudio(object):
 class InvalidPhone(object):
     def call(self, url):
         raise Exception('Invalid phone number')
+
+
+class FakePhone(object):
+    def __init__(self):
+        pass
+
+    def call(self, url):
+        pass
+
+
+class FakePayment(object):
+    def __init__(self):
+        self.charge_was_called = False
+
+    def charge(self, amount, currency, description):
+        self.charge_was_called = True
+        self.charge_currency = currency
+        self.charge_amount = amount
+        self.charge_description = description
+        return

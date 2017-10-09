@@ -2,7 +2,7 @@ import os
 import urllib.parse
 import uuid
 
-from core import S3Object, Polly, TwilioPhone
+from core import S3Object, Polly, TwilioPhone, TwimlFile
 from core.usecase import Usecase
 
 
@@ -10,12 +10,18 @@ def charge(event, context):
     try:
         email, message, token, phone_number, cron = unpack_data(event)
 
+        object_key = str(uuid.uuid4())
         Usecase(
             S3Object(
-                'recordings',
-                Polly(message).recording(
-                    '{0}.mp3'.format(str(uuid.uuid4()))
-                )
+                'recordings/{0}'.format(object_key),
+                TwimlFile(
+                    S3Object(
+                        'recordings/{0}'.format(object_key),
+                        Polly(message).recording(
+                            'voice.mp3'
+                        )
+                    ).url()
+                ).write()
             ),
             TwilioPhone(
                 phone_number,

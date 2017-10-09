@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from core import Usecase
-from core.fakes import InvalidPhone, FakeStorageObject, FakeAudio
+from core.fakes import InvalidPhone, FakeStorageObject, FakeAudio, FakePayment, FakePhone
 
 
 class TestUsecase(TestCase):
@@ -9,9 +9,23 @@ class TestUsecase(TestCase):
         with self.assertRaises(Exception):
             Usecase(
                 FakeStorageObject(
-                    'test-bucket',
-                    FakeAudio('message-message-message').recording('filename.mp3')
+                    FakeAudio().recording('filename.mp3')
                 ),
                 InvalidPhone(),
-                'token-token-token'
+                FakePayment()
             ).run()
+
+    def test_paymentmethod_callscharge(self):
+        payment = FakePayment()
+        Usecase(
+            FakeStorageObject(
+                FakeAudio().recording('filename.mp3')
+            ),
+            FakePhone(),
+            payment
+        ).run()
+
+        self.assertTrue(payment.charge_was_called)
+        self.assertEqual(100, payment.charge_amount)
+        self.assertEqual("usd", payment.charge_currency)
+        self.assertEqual("one reminder", payment.charge_description)

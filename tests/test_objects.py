@@ -2,31 +2,8 @@ import os
 import uuid
 from unittest import TestCase
 
-from core import TwilioPhone, S3Object, Polly, TwimlFile, Remindr, PhoneNumber, Cron
-from core.fakes import *
-
-
-class TestRemindr(TestCase):
-    def test_attributes(self):
-        remindr = Remindr('123-123-1234', 'location', 'everyday')
-        assert '123-123-1234' == remindr._phone
-        assert 'location' == remindr._recording
-        assert 'everyday' == remindr._cron
-
-    def test_save(self):
-        remindr = Remindr(
-            PhoneNumber('123-132-1234'),
-            FakeStorageObject(
-                'bucket-name',
-                FakeAudio('message')
-            ),
-            Cron('* * * *')
-        )
-
-        function_processor = FakeProcessor()
-        function_processor.add_item(remindr)
-
-        assert len(function_processor.items) > 0
+from core import TwilioPhone, S3Object, Polly, TwimlFile
+from core.stripe import StripePayment
 
 
 class TestPolly(TestCase):
@@ -83,3 +60,16 @@ class TestTwimlFile(TestCase):
             os.remove(twiml_location)
 
         os.remove(test_file_name)
+
+
+class TestStripePayment(TestCase):
+    def test_charge(self):
+        response = StripePayment(
+            'sk_test_BQokikJOvBiI2HlWgH4olfQ2',
+            'tok_mastercard',
+        ).charge(
+            100, 'usd', 'description'
+        )
+
+        assert response
+        self.assertEqual('succeeded', response['status'])
