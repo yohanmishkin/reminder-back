@@ -37,21 +37,6 @@ class TestPolly(TestCase):
         assert mp3.endswith(file_name)
 
 
-class TestTwimlFile(TestCase):
-    def test_write(self):
-        test_key = str(uuid.uuid4())
-        test_file_name = '{0}.mp3'.format(test_key)
-
-        with open(test_file_name, 'w') as file:
-            file.truncate(1024)
-            twiml_location = TwimlFile(test_file_name).write()
-
-            assert os.path.exists(twiml_location)
-            os.remove(twiml_location)
-
-        os.remove(test_file_name)
-
-
 class TestS3Object(TestCase):
     def test_url(self):
         test_bucket_name = 'test-remindrs'
@@ -83,3 +68,18 @@ class TestTwilioPhone(TestCase):
 
         sid = TwilioPhone(phone_number, _from).call(url)
         assert sid
+
+
+class TestTwimlFile(TestCase):
+    def test_write(self):
+        test_key = str(uuid.uuid4())
+        test_file_name = '{0}.mp3'.format(test_key)
+
+        with open(test_file_name, 'w') as file:
+            file.truncate(1024)
+            twiml_location = TwimlFile(test_file_name).write()
+
+            assert os.path.exists(twiml_location)
+            os.remove(twiml_location)
+
+        os.remove(test_file_name)

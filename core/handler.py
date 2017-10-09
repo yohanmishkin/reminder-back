@@ -1,5 +1,8 @@
+import os
 import urllib.parse
+import uuid
 
+from core import S3Object, Polly, TwilioPhone
 from core.usecase import Usecase
 
 
@@ -7,13 +10,19 @@ def charge(event, context):
     try:
         email, message, token, phone_number, cron = unpack_data(event)
 
-        use_case = Usecase(message, phone_number, token)
-        # S3Object(
-        #     Polly(self._storage_object).recording(
-        #         '{0}.mp3'.format(str(uuid.uuid4()))
-        #     )
-        # ).url()
-        use_case.run()
+        Usecase(
+            S3Object(
+                'recordings',
+                Polly(message).recording(
+                    '{0}.mp3'.format(str(uuid.uuid4()))
+                )
+            ),
+            TwilioPhone(
+                phone_number,
+                os.environ['TWILIO_FROM']
+            ),
+            token
+        ).run()
 
         response = {
             "statusCode": 200,
