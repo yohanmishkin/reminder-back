@@ -8,6 +8,11 @@ def charge(event, context):
         email, message, token, phone_number, cron = unpack_data(event)
 
         use_case = Usecase(message, phone_number, token)
+        # S3Object(
+        #     Polly(self._storage_object).recording(
+        #         '{0}.mp3'.format(str(uuid.uuid4()))
+        #     )
+        # ).url()
         use_case.run()
 
         response = {
@@ -22,7 +27,6 @@ def charge(event, context):
             "statusCode": 500,
             "body": exception
         }
-
 
 
 def unpack_data(event):

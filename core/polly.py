@@ -1,21 +1,23 @@
-from boto3 import Session
-from contextlib import closing
-from tempfile import gettempdir
 import os
 import sys
+from contextlib import closing
+from tempfile import gettempdir
+
+from boto3 import Session
+
 
 class Polly(object):
     def __init__(self, message):
         self._message = message
 
     def recording(self, file_name):
-        
+
         session = Session()
         polly = session.client("polly")
-        
+
         response = polly.synthesize_speech(Text=self._message,
-                                                VoiceId="Salli",
-                                                OutputFormat="mp3")
+                                           VoiceId="Salli",
+                                           OutputFormat="mp3")
 
         if "AudioStream" in response:
             with closing(response["AudioStream"]) as stream:

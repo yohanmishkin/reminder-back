@@ -6,11 +6,11 @@ from twilio.rest import Client
 
 
 class TwilioPhone(object):
-    def __init__(self, phone_number):
+    def __init__(self, phone_number, _from):
         self._phone_number = phone_number
         self._account_sid = os.environ['TWILIO_ACCOUNT_SID']
         self._auth_token = os.environ['TWILIO_AUTH_TOKEN']
-        self._from = os.environ['TWILIO_FROM']
+        self._from = _from
 
     def call(self, url):
         client = Client(self._account_sid, self._auth_token)
