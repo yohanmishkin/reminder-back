@@ -16,25 +16,27 @@ class TestPolly(TestCase):
 
 class TestS3Object(TestCase):
     def test_url(self):
-        test_bucket_name = 'test-remindrs'
-        test_key = str(uuid.uuid4())
-        test_file_name = '{0}.mp3'.format(test_key)
+        bucket_name = 'test-remindrs'
+        folder_name = str(uuid.uuid4())
+        file_name = 'voice.mp3'
 
-        with open(test_file_name, 'w') as file:
+        with open(file_name, 'w') as file:
             file.truncate(1024)
 
-            s3_object = S3Object(test_bucket_name, test_file_name)
+            s3_object = S3Object(bucket_name, folder_name, file_name)
             url = s3_object.url()
             assert url
 
-            test_url = 'https://s3.us-east-1.amazonaws.com/{0}/{1}'.format(test_bucket_name, test_key)
-            assert url == test_url
+            test_url = 'https://s3.us-east-1.amazonaws.com/{0}/{1}/{2}' \
+                .format(bucket_name, folder_name, file_name)
+
+            self.assertEqual(test_url, url)
 
             s3_object.delete()
             file.close()
-            os.remove(test_file_name)
+            os.remove(file_name)
 
-        assert not os.path.exists(test_file_name)
+        assert not os.path.exists(file_name)
 
 
 class TestTwilioPhone(TestCase):
