@@ -9,13 +9,17 @@ def charge(event, context):
     try:
         email, message, token, phone_number, cron = unpack_data(event)
 
-        object_key = str(uuid.uuid4())
+        bucket_name = 'remindrs'
+        folder_name = str(uuid.uuid4())
+
         Usecase(
             S3Object(
-                'recordings/{0}'.format(object_key),
+                bucket_name,
+                folder_name,
                 TwimlFile(
                     S3Object(
-                        'recordings/{0}'.format(object_key),
+                        bucket_name,
+                        folder_name,
                         Polly(message).recording(
                             'voice.mp3'
                         )

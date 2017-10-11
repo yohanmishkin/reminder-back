@@ -4,8 +4,9 @@ from core.utilities.filename import FileName
 
 
 class S3Object(object):
-    def __init__(self, bucket_name, file_name):
+    def __init__(self, bucket_name, folder_name, file_name):
         self._bucket_name = bucket_name
+        self._folder_name = folder_name
         self._file_name = FileName(file_name)
 
     def url(self):
@@ -14,12 +15,13 @@ class S3Object(object):
         s3.upload_file(
             self._file_name.full(),
             self._bucket_name,
-            self._file_name.stem()
+            '{0}/{1}'.format(self._folder_name, self._file_name.full())
         )
 
-        return 'https://s3.us-east-1.amazonaws.com/{0}/{1}'.format(
+        return 'https://s3.us-east-1.amazonaws.com/{0}/{1}/{2}'.format(
             self._bucket_name,
-            self._file_name.stem()
+            self._folder_name,
+            self._file_name.full()
         )
 
     def delete(self):
@@ -27,5 +29,5 @@ class S3Object(object):
 
         s3.delete_object(
             Bucket=self._bucket_name,
-            Key=self._file_name.stem()
+            Key='{0}/{1}'.format(self._folder_name, self._file_name.full())
         )
