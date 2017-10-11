@@ -6,50 +6,43 @@ from core import S3Object, Polly, TwilioPhone, TwimlFile, StripePayment, Usecase
 
 
 def charge(event, context):
-    try:
-        email, message, token, phone_number, cron = unpack_data(event)
+    email, message, token, phone_number, cron = unpack_data(event)
 
-        bucket_name = 'remindrs'
-        folder_name = str(uuid.uuid4())
+    bucket_name = 'remindrs'
+    folder_name = str(uuid.uuid4())
 
-        Usecase(
-            S3Object(
-                bucket_name,
-                folder_name,
-                TwimlFile(
-                    S3Object(
-                        bucket_name,
-                        folder_name,
-                        Polly(message).recording(
-                            'voice.mp3'
-                        )
-                    ).url()
-                ).write()
-            ),
-            TwilioPhone(
-                phone_number,
-                os.environ['TWILIO_FROM'],
-                os.environ['TWILIO_ACCOUNT_SID'],
-                os.environ['TWILIO_AUTH_TOKEN']
-            ),
-            StripePayment(
-                os.environ['STRIPE_KEY'],
-                token
-            )
-        ).run()
+    Usecase(
+        S3Object(
+            bucket_name,
+            folder_name,
+            TwimlFile(
+                S3Object(
+                    bucket_name,
+                    folder_name,
+                    Polly(message).recording(
+                        'voice.mp3'
+                    )
+                ).url()
+            ).write()
+        ),
+        TwilioPhone(
+            phone_number,
+            os.environ['TWILIO_FROM'],
+            os.environ['TWILIO_ACCOUNT_SID'],
+            os.environ['TWILIO_AUTH_TOKEN']
+        ),
+        StripePayment(
+            os.environ['STRIPE_KEY'],
+            token
+        )
+    ).run()
 
-        response = {
-            "statusCode": 200,
-            "body": "Scheduled call and charged card"
-        }
+    response = {
+        "statusCode": 200,
+        "body": "Scheduled call and charged card"
+    }
 
-        return response
-
-    except Exception as exception:
-        return {
-            "statusCode": 500,
-            "body": exception
-        }
+    return response
 
 
 def unpack_data(event):
