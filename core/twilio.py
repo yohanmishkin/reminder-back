@@ -1,3 +1,5 @@
+import os
+from tempfile import gettempdir
 from xml.etree.ElementTree import Element, SubElement, ElementTree
 
 from twilio.base.exceptions import TwilioRestException
@@ -45,5 +47,6 @@ class TwimlFile(object):
         child.text = self._file_url
 
         file_name = 'voice.xml'
-        ElementTree(top).write(file_name)
-        return file_name
+        output_file_name = os.path.join(gettempdir(), file_name)
+        ElementTree(top).write(output_file_name)
+        return output_file_name
