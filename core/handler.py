@@ -24,7 +24,9 @@ def charge(event, context):
             ),
             TwilioPhone(
                 phone_number,
-                os.environ['TWILIO_FROM']
+                os.environ['TWILIO_FROM'],
+                os.environ['TWILIO_ACCOUNT_SID'],
+                os.environ['TWILIO_AUTH_TOKEN']
             ),
             StripePayment(
                 os.environ['STRIPE_KEY'],

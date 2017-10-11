@@ -1,4 +1,3 @@
-import os
 from xml.etree.ElementTree import Element, SubElement, ElementTree
 
 from twilio.base.exceptions import TwilioRestException
@@ -6,10 +5,10 @@ from twilio.rest import Client
 
 
 class TwilioPhone(object):
-    def __init__(self, phone_number, _from):
+    def __init__(self, phone_number, _from, account_sid, auth_token):
         self._phone_number = phone_number
-        self._account_sid = os.environ['TWILIO_ACCOUNT_SID']
-        self._auth_token = os.environ['TWILIO_AUTH_TOKEN']
+        self._account_sid = account_sid
+        self._auth_token = auth_token
         self._from = _from
 
     def call(self, url):

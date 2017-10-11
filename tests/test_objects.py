@@ -41,9 +41,14 @@ class TestTwilioPhone(TestCase):
     def test_makes_call(self):
         url = 'http://demo.twilio.com/docs/classic.mp3'
         phone_number = "+15005550006"
-        _from = phone_number
 
-        sid = TwilioPhone(phone_number, _from).call(url)
+        sid = TwilioPhone(
+            phone_number,
+            phone_number,
+            os.environ['TWILIO_ACCOUNT_SID'],
+            os.environ['TWILIO_AUTH_TOKEN']
+        ).call(url)
+
         assert sid
 
 
