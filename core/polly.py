@@ -22,6 +22,7 @@ class Polly(object):
         if "AudioStream" in response:
             with closing(response["AudioStream"]) as stream:
                 output = os.path.join(gettempdir(), file_name)
+                print('Recording Polly output to ', output)
                 try:
                     # Open a file for writing the output as a binary stream
                     with open(output, "wb") as file:

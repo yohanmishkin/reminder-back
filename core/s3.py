@@ -15,7 +15,7 @@ class S3Object(object):
         s3.upload_file(
             self._file_name.full(),
             self._bucket_name,
-            '{0}/{1}'.format(self._folder_name, self._file_name.full())
+            '{0}{1}'.format(self._folder_name, self._file_name.full())
         )
 
         return 'https://s3.us-east-1.amazonaws.com/{0}/{1}/{2}'.format(
