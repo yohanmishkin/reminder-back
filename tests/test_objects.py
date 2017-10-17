@@ -27,7 +27,7 @@ class TestS3Object(TestCase):
             url = s3_object.url()
             assert url
 
-            test_url = 'https://s3.us-east-1.amazonaws.com/{0}/{1}/{2}' \
+            test_url = 'https://s3.us-east-1.amazonaws.com/{0}/{1}{2}' \
                 .format(bucket_name, folder_name, file_name)
 
             self.assertEqual(test_url, url)

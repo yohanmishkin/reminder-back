@@ -18,7 +18,7 @@ class S3Object(object):
             '{0}{1}'.format(self._folder_name, self._file_name.full())
         )
 
-        return 'https://s3.us-east-1.amazonaws.com/{0}/{1}/{2}'.format(
+        return 'https://s3.us-east-1.amazonaws.com/{0}/{1}{2}'.format(
             self._bucket_name,
             self._folder_name,
             self._file_name.full()
