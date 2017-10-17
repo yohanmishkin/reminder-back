@@ -1,8 +1,10 @@
+import json
 import os
 import urllib.parse
 import uuid
 
 from core import S3Object, Polly, TwilioPhone, TwimlFile, StripePayment, Usecase
+from core.utilities.exceptions import LambdaException
 
 
 def charge(event, context):
@@ -45,11 +47,16 @@ def charge(event, context):
         }
 
     except Exception as exception:
-        return {
-            "statusCode": 500,
-            "headers": {"Content-Type": "application/json"},
-            "body": exception
+        exception_type = exception.__class__.__name__
+        exception_message = exception.message
+
+        api_exception_obj = {
+            "isError": True,
+            "type": exception_type,
+            "message": exception_message
         }
+        api_exception_json = json.dumps(api_exception_obj)
+        raise LambdaException(api_exception_json)
 
 
 def unpack_data(event):
