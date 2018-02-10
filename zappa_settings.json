@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "app_function": "processor.app",
+        "aws_region": "us-east-1",
+        "profile_name": "default",
+        "s3_bucket": "dev-packages",
+        "lambda_handler": "processor.lambda_handler", // The name of Lambda handler. Default: handler.lambda_handler
+        "memory_size": 256
+    }
+}
